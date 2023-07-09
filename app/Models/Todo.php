@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Todo extends Model
 {
     use HasFactory;
 
-    //has many tasks
-    public function tasks(){
-        return $this->hasMany(Task::class);
+    //belongs to task
+    public function task(){
+        return $this->belongsTo(Task::class);
     }
 
-    //has many todo
+
+    //belongs to user
+    
 }
