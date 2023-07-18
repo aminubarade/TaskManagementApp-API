@@ -11,10 +11,7 @@ class Todo extends Model
 
     //belongs to task
     public function task(){
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Task::class, 'task_id');
     }
-
-
     //belongs to user
-    
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Hash;
 use App\Models\User;
 
 class UserController extends Controller
@@ -21,17 +23,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      //
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreUserRequest  $request
@@ -39,39 +30,40 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user = new User;
-        $user->username = $request->username;
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
-        return response()->json([
-            "message" => "User saved"
-        ],201);
+        $validated = Validator::make($request->all(),[
+            'username' => 'required|unique:users|max:255',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' =>'required|email',
+            'password' => 'required'
+        ]);
+
+        if($validated->fails()){
+            return response()->json([
+                "status" => 422,
+                "message" => $validated->messages()
+            ],422);
+        }else{
+            $user = new User;
+            $user->username = $request->username;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return response()->json([
+                "message" => "User saved"
+            ],201);
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user)
     {
         //
+        return $user;
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
     }
 
     /**
@@ -81,11 +73,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
-        if(User::where('id',$id)->exists()){
-            $user = User::find($id);
+        if($user->username){
             $user->username = is_null($request->username) ? $user->username : $request->username; 
             $user->firstname = is_null($request->firstname) ? $user->firstname : $request->firstname; 
             $user->lastname = is_null($request->lastname) ? $user->lastname : $request->lastname; 
