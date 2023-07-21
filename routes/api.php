@@ -42,7 +42,7 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/user/{user:username}', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
 Route::put('user/{user:username}', [UserController::class, 'update']);
-Route::delete('task/{task:task}', [TaskController::class, 'delete']);
+Route::delete('task/{task:task}', [TaskController::class, 'destroy']);
 
 
 //Task APIs
@@ -50,7 +50,7 @@ Route::get('/tasks', [TaskController::class, 'index']);
 Route::get('/task/{task:task}', [TaskController::class, 'show']);
 Route::post('/task', [TaskController::class, 'store']);
 Route::put('task/{task:task}', [TaskController::class, 'update']);
-Route::delete('task/{task:task}', [TaskController::class, 'delete']);
+Route::delete('task/{task:task}', [TaskController::class, 'destroy']);
 
 
 //Todo APIs
@@ -58,7 +58,7 @@ Route::get('/task/todos', [TodokController::class, 'index']);
 Route::get('/task/{todo:todo}', [TodoController::class, 'show']);
 Route::post('/task/todo', [TodoController::class, 'store']);
 Route::put('task/{todo:todo}', [TodoController::class, 'update']);
-Route::delete('task/{todo:todo}', [TodoController::class, 'delete']);
+Route::delete('task/{todo:todo}', [TodoController::class, 'destroy']);
 
 
 

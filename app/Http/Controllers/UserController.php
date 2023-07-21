@@ -48,6 +48,7 @@ class UserController extends Controller
             $user->username = $request->username;
             $user->firstname = $request->firstname;
             $user->lastname = $request->lastname;
+            $user->phone = $request->phone;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
@@ -80,11 +81,12 @@ class UserController extends Controller
             $user->username = is_null($request->username) ? $user->username : $request->username; 
             $user->firstname = is_null($request->firstname) ? $user->firstname : $request->firstname; 
             $user->lastname = is_null($request->lastname) ? $user->lastname : $request->lastname; 
+            $user->phone = is_null($request->phone) ? $user->phone : $request->phone; 
             $user->email = is_null($request->email) ? $user->email : $request->email; 
             $user->password = is_null($request->password) ? $user->password : $request->password; 
             $user->update();
             return response()->json([
-                "message" => "User updated"
+                "message" => "User record updated"
             ],201);
         }
     }
@@ -98,5 +100,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+        if($user->username){
+            $user->delete();
+            return response()->json([
+                "message" => "User Deleted"
+            ], 200);
+        }else {
+            return response()->json([
+                "message" => "User Not Found"
+            ],404);
+        }
     }
 }

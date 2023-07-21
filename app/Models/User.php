@@ -17,4 +17,11 @@ class User extends Authenticatable
     }
 
     //has many todo
+    public function todos(){
+        return $this->hasMany(Todo::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }

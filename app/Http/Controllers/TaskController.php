@@ -29,8 +29,10 @@ class TaskController extends Controller
             ],422);
         }else{
             $task = new Task;
-            $task->task = $request->username;
+            $task->task = $request->task;
             $task->status = null;
+            $task->is_active = $request->is_active;
+            $participants = [];
             $task->user_id = null;
             $task->save();
             return response()->json([
@@ -43,8 +45,7 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
-        return $task;
-
+        return response()->json($task);
     }
 
     public function update(UpdateUserRequest $request, Task $task)
@@ -59,14 +60,30 @@ class TaskController extends Controller
             ],201);
         }
     }
-
-    public function setStatus(){
-
+    
+    
+    //assign participants to a specific task
+    public function assignParticipants(){
+        //
+    }
+    //remove participants from a specific task
+    public function removeParticipants(){
+        //
     }
 
-
+    //delete a task and all its todos
     public function destroy(Task $task)
     {
         //
+        if($task->task){
+           $task->delete();
+           return response()->json([
+            'message' => 'Task Deleted'
+           ], 200);
+        }else{
+            return response()->json([
+                'message' => 'Task Not Found'
+            ],200);
+        }
     }
 }
