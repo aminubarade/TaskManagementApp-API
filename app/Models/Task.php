@@ -11,11 +11,15 @@ class Task extends Model
     
     //belongs to user
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // has many todo
     public function todos(){
         return $this->hasMany(Todo::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }
