@@ -70,6 +70,9 @@ class TaskController extends Controller
     public function removeParticipants(){
         //
     }
+    public function searchTask() {
+
+    }
 
     //delete a task and all its todos
     public function destroy(Task $task)
