@@ -35,6 +35,7 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' =>'required|email',
+            'phone' =>'required|unique:users|max:11',
             'password' => 'required'
         ]);
 
