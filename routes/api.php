@@ -42,7 +42,7 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/user/{user:username}', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
 Route::put('user/{user:username}', [UserController::class, 'update']);
-Route::delete('task/{task:task}', [TaskController::class, 'destroy']);
+Route::delete('user/{user:username}', [UserController::class, 'destroy']);
 
 
 //Task APIs
