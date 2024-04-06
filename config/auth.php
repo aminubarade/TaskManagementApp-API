@@ -36,6 +36,12 @@ return [
     */
 
     'guards' => [
+        'web' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => true,
+        ],
+
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',

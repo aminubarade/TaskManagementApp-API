@@ -11,10 +11,13 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFactory, HasApiTokens;
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    //has many tasks
     public function tasks(){
-        return $this->hasMany(Task::class);
+        return $this->belongsToMany(Task::class);
     }
 
     //has many todo
