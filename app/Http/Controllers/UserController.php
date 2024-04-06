@@ -10,75 +10,16 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getAllUsers()
     {
-        //
         $users = User::all();
         return response()->json($users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUserRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreUserRequest $request)
+    public function updateUser(UpdateUserRequest $request, $id)
     {
-        $validated = Validator::make($request->all(),[
-            'username' => 'required|unique:users|max:255',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' =>'required|email',
-            'phone' =>'required|unique:users|max:11',
-            'password' => 'required'
-        ]);
-
-        if($validated->fails()){
-            return response()->json([
-                "status" => 422,
-                "message" => $validated->messages()
-            ],422);
-        }else{
-            $user = new User;
-            $user->username = $request->username;
-            $user->firstname = $request->firstname;
-            $user->lastname = $request->lastname;
-            $user->phone = $request->phone;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
-            return response()->json([
-                "message" => "User saved"
-            ],201);
-        }
-
-    }
-
-
-    public function show(User $user)
-    {
-        //
-        return $user;
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUserRequest  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateUserRequest $request, User $user)
-    {
-        //
-        if($user->username){
+        $user = User::find($id);
+        if($user){
             $user->username = is_null($request->username) ? $user->username : $request->username; 
             $user->firstname = is_null($request->firstname) ? $user->firstname : $request->firstname; 
             $user->lastname = is_null($request->lastname) ? $user->lastname : $request->lastname; 
@@ -91,15 +32,11 @@ class UserController extends Controller
             ],201);
         }
     }
-    // public function searchUser(){
 
-    // }
-
-
-    public function destroy(User $user)
+    public function deleteUser($id)
     {
-        //
-        if($user->username){
+        $user = User::find($id);
+        if($user){
             $user->delete();
             return response()->json([
                 "message" => "User Deleted"
