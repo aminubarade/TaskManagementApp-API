@@ -10,8 +10,8 @@ class Task extends Model
     use HasFactory;
     
     //belongs to user
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 
     // has many todo

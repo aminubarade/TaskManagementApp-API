@@ -16,7 +16,21 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function updateUser(UpdateUserRequest $request, $id)
+    public function viewUser($id)
+    {
+        $user = User::find($id);
+        if($user){
+            return response()->json([
+                'message' => 'user fetched',
+                'user' => $user
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'user does not exists',
+        ], 200);
+    }
+
+    public function updateUser(Request $request, $id)
     {
         $user = User::find($id);
         if($user){
@@ -25,7 +39,6 @@ class UserController extends Controller
             $user->lastname = is_null($request->lastname) ? $user->lastname : $request->lastname; 
             $user->phone = is_null($request->phone) ? $user->phone : $request->phone; 
             $user->email = is_null($request->email) ? $user->email : $request->email; 
-            $user->password = is_null($request->password) ? $user->password : $request->password; 
             $user->update();
             return response()->json([
                 "message" => "User record updated"
@@ -43,7 +56,7 @@ class UserController extends Controller
             ], 200);
         }else {
             return response()->json([
-                "message" => "User Not Found"
+                "message" => "User has already been delete"
             ],404);
         }
     }

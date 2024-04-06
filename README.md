@@ -3,63 +3,69 @@ This is the Backend code for Task Management App using Laravel. This app is for 
 <br>
 
 Tools: <br>
-  Environment - PHP/Composer <br>
-  Framework - Laravel <br>
+  Environment - PHP 8.0/Composer <br>
+  Framework - Laravel 9.52.16 <br>
   Database - MySQL <br>
   Database architecture - Eloquent
 
 # Endpoints
 
 The following Endpoints are available on the App
-# Todo
 
-*GET:*
-  127.0.0.1:3000/todos
+# User Management
 #
-*GET:*
-  127.0.0.1:3000/todos/{id}
+*Create User:*
+  /api/users/
 #
-*POST:*
-  127.0.0.1:3000/todos
+*Fetch All Users:*
+  /api/users/
 #
+*View User:*
+  /api/users/{id}
+#
+*UPDATE User:*
+  /api/users/view/{id}
+#
+
+*DELETE User*
+   /api/delete/users/{id}
+#
+
+# Task Management Endpoints
+*Create Task:*
+  /api/tasks/create
+#
+
+*Fetch all Tasks:*
+  /api/tasks
+#
+*View Task:*
+  /api/tasks/view/{id}
+#
+
 *UPDATE:*
-  127.0.0.1:3000/todos/{id}
+  /api/tasks/update/{id}
 #
 *DELETE:*
-   127.0.0.1:3000/todos/{id}
+  /api/tasks/delete/{id}
+
 #
-# Task
+# Todos Endpoints
+*Create todo:*
+  /api/todos/create
+#
+*Fetch all Todos:*
+  /api/todos
+#
 *GET:*
-  127.0.0.1:3000/tasks
-#
-*GET:*
-  127.0.0.1:3000/tasks/{id}
-#
-*POST:*
-  127.0.0.1:3000/tasks
+  /api/todos/view/{id}
 #
 *UPDATE:*
-  127.0.0.1:3000/tasks/{id}
+  /api/todos/update{id}
 #
 *DELETE:*
-   127.0.0.1:3000/tasks/{id}
-
-# User
-*GET:*
-  127.0.0.1:3000/users
-  127.0.0.1:3000/users/{id}
+  /api/todos/delete/{id}
 #
-*GET:*
-  127.0.0.1:3000/users/{id}
-#
-*POST:*
-  127.0.0.1:3000/users
-#
-*UPDATE:*
-  127.0.0.1:3000/users/{id}
-#
-*DELETE*
-   127.0.0.1:3000/users/{id}
 
 # How The App Works
    The application is for task management. A task can be created with multiple todos, which can be used to determine the progress of the parent task.
@@ -83,11 +89,11 @@ The following Endpoints are available on the App
 
 # Installation
 
-# Upcomming Features and Chores
+# Upcoming Feature
+  1. Notifications
+  2. Permissions
+  3. File attachments
+  4. Password reset
 
- 1. User Authentication
- 2. Task assignment
- 3. Backend input validation
-#
 
 
