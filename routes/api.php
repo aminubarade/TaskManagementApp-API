@@ -27,38 +27,46 @@ use App\Http\Controllers\TodoController;
 //     return $request->user();
 // }); 
 
-Route::post('/register', [AuthController::class, 'register'])->middleware('guest');
-Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
+Route::post('/register', [AuthController::class, 'registerUser']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::group(['middleware' => ['auth']],function () {
+
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+
+Route::group(['middleware' => 'auth:api'], function() {
+   
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'getAllUsers']);
+        
+    });
+
+
+    Route::prefix('tasks')->group(function () {
+        Route::get('/', [UserController::class, 'getAllTasks']);
+        
+    });
+
+
+    Route::prefix('todos')->group(function () {
+        Route::get('/', [UserController::class, 'getAllTodos']);
+        
+    });
+
+
+
+
+
+
+
+
+
+
 
 });
 
-//auth routes 
-
-//all users APIs
-
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/user/{user:username}', [UserController::class, 'show']);
-Route::post('/user', [UserController::class, 'store']);
-Route::put('user/{user:username}', [UserController::class, 'update']);
-Route::delete('user/{user:username}', [UserController::class, 'destroy']);
-
-
-//Task APIs
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::get('/task/{task:task}', [TaskController::class, 'show']);
-Route::post('/task', [TaskController::class, 'store']);
-Route::put('task/{task:task}', [TaskController::class, 'update']);
-Route::delete('task/{task:task}', [TaskController::class, 'destroy']);
-
-
-//Todo APIs
-Route::get('/task/todos', [TodokController::class, 'index']);
-Route::get('/task/{todo:todo}', [TodoController::class, 'show']);
-Route::post('/task/todo', [TodoController::class, 'store']);
-Route::put('task/{todo:todo}', [TodoController::class, 'update']);
-Route::delete('task/{todo:todo}', [TodoController::class, 'destroy']);
 
 
 
