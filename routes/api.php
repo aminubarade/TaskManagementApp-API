@@ -52,13 +52,16 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/view/{id}', [TaskController::class, 'viewTask']);
         Route::put('/update/{id}', [TaskController::class, 'updateTask']);
         Route::delete('/delete/{id}', [TaskController::class, 'deleteTask']);
+        Route::patch('/update-status/{id}', [TaskController::class, 'setTaskStatus']);
         Route::patch('/disable-task/{id}', [TaskController::class, 'disableTask']);
     });
 
 
     Route::prefix('todos')->group(function () {
-        Route::get('/', [UserController::class, 'getAllTodos']);
-        
+        Route::post('/create', [TodoController::class, 'createTodo']);
+        Route::put('/update/{id}', [TodoController::class, 'updateTodo']);
+        Route::delete('/delete/{id}', [TodoController::class, 'deleteTodo']);
+        Route::patch('/update-status/{id}', [TodoController::class, 'updateTodoStatus']);
     });
 
 

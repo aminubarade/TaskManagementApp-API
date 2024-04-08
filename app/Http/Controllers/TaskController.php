@@ -1,31 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
    public function createTask(Request $request)
    {
-        $task = new Task;
-        $task->title = $request->title;
-        $task->description = $request->description;
-        $task->due_date = $request->due_date;
-        $task->created_by = Auth::user()->id;
-        $task->save();
-        if($request->assign_to){
-            $task->users()->sync($request->assign_to);
+        try{
+            $task = new Task;
+            $task->title = $request->title;
+            $task->description = $request->description;
+            $task->due_date = $request->due_date;
+            $task->created_by = Auth::user()->id;
+            $task->save();
+            if($request->assign_to){
+                $task->users()->sync($request->assign_to);
+            }
+            $members = $task->users()->get();
+            return response()->json([
+                "message" => "Task created",
+                "task" => $task,
+                "members" => $members
+            ], 200);
         }
-        $members = $task->users();
-        return response()->json([
-            "message" => "Task created",
-            "task" => $task,
-            "members" => $members
-        ], 200);
+        catch(Exception $e){
+            DB::rollBack();
+            return response()->json([
+                "message" => $e
+            ], 401);
+        }
+        
    }
 
    public function getAllTasks()
@@ -36,7 +46,6 @@ class TaskController extends Controller
             "message" => "All Your Tasks",
             "tasks" => $tasks
         ], 200);
-
    }
 
    public function viewTask($id)
@@ -90,26 +99,61 @@ class TaskController extends Controller
             ], 200);
         }else {
             return response()->json([
-                "message" => "Uask has already been delete"
+                "message" => "Task has already been delete"
             ],404);
         }
    }
 
    public function disableTask(Request $request, $id)
    {
-    $task = Task::find($id);
-    if($task->is_active == 1)
-    {
-        $task->is_active = 0;
-        $task->update();
+        $validated = Validator::make($request->all(),[
+            'is_active' => 'required|boolean',
+        ]);
+        if($validated->fails()){
+            return response()->json([
+                "status" => 422,
+                "message" => $validated->messages()
+            ],422);
+        }
+        $task = Task::find($id);
+        if($task->is_active == 1)
+        {
+            $task->is_active = 0;
+            $task->update();
+            return response()->json([
+                "message" => "Task Disabled"
+            ], 200);
+        }
         return response()->json([
-            "message" => "Task Disabled"
+            "message" => "Task does not exist or already disabled"
         ], 200);
-    }
-    return response()->json([
-        "message" => "Task does not exist or already disabled"
-    ], 200);
     
-
    }
+
+   public function setTaskStatus(Request $request, $id)
+   {
+        $validated = Validator::make($request->all(),[
+            'status' => 'required|',
+        ]);
+        if($validated->fails()){
+            return response()->json([
+                "status" => 422,
+                "message" => $validated->messages()
+            ],422);
+        }
+        $task = Task::find($id);
+        if($task)
+        {
+            $task->status = $request->status; //1 complete 0 incomplete
+            $task->update();
+            return response()->json([
+                "message" => "Task Status Updated"
+            ], 200);
+        }
+        return response()->json([
+            "message" => "Task does not exist"
+        ], 200);
+   }
+
+
 }
