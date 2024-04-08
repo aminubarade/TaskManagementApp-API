@@ -1,3 +1,7 @@
+[![PHP Version Require](http://poser.pugx.org/phpunit/phpunit/require/php)](https://packagist.org/packages/phpunit/phpunit)
+[![Version](http://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit)
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+
 # Taskshare
 This is the Backend code for Task Management App using Laravel. This app is for coding beginners who are learning how to create REST API using Laravel. It can also be used by frontend developers to have a backend for their frontend task management app.
 
