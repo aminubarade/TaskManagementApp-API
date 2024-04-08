@@ -213,6 +213,9 @@ Before running this code locally, ensure you have:
   - `todoId` (integer): ID of the todo.
 - **Authentication:** Requires a valid Passport token obtained after login.
 
+## Database Schema
+<img src="taskshare.jpeg" alt="">
+
 ## Testing
 
 1. Use Postman or any API testing tool to test the endpoints.
