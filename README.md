@@ -164,7 +164,7 @@ Before running this code locally, ensure you have:
 - **Endpoint:** `/api/tasks/disable-task/:id`
 - **Parameters:**
   - `id` (integer): ID of the task to disable.
-  - `is_active` (boolean): To diable the task.
+  - `is_active` (boolean): To disable the task.
 - **Authentication:** Requires a valid Passport token obtained after login.
 
 #### Update Task Status
