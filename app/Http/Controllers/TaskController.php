@@ -13,12 +13,14 @@ class TaskController extends Controller
    public function createTask(Request $request)
    {
         try{
+            DB::beginTransaction();
             $task = new Task;
             $task->title = $request->title;
             $task->description = $request->description;
             $task->due_date = $request->due_date;
             $task->created_by = Auth::user()->id;
             $task->save();
+            DB::commit();
             if($request->assign_to){
                 $task->users()->sync($request->assign_to);
             }

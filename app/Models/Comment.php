@@ -8,13 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
-    //belongs to a user
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-    
-    //belongs to as task
-    public function task(){
-        return $this->belongsTo(Task::class);
+    public function entity()
+    {
+        return $this->morphTo(__FUNCTION__, 'entity', 'entity_id');
     }
 }
