@@ -35,4 +35,28 @@ trait Comments
         }
         
     }
+
+    public function getAllComments($entity)
+    {
+        $comments = Comment::where('entity_id', $entity_id);
+        if($comments){
+            return response()->json([
+                "message" => "All comments fetched",
+                "comments" => $comments
+            ], 200);
+        }
+        return response()->json([
+            "message" => "No comment yet"
+        ], 400);
+    }
+
+    public function editComment($id)
+    {
+
+    }
+
+    public function deleteComment($id)
+    {
+
+    }
 }
