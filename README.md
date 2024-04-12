@@ -231,7 +231,7 @@ Ensure proper authentication and authorization mechanisms are in place to secure
 
 Handle errors and exceptions gracefully by returning appropriate HTTP status codes and error messages in the response.
 
-#### Miscelnious
+#### Built with
   1. Framework - Laravel Version 9.52.16
   2. Database architecture - Eloquent
 
