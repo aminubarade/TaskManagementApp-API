@@ -57,6 +57,15 @@ trait Comments
 
     public function deleteComment($id)
     {
-
+        $comment = Comment::find($id);
+        if($comment){
+            $comment->delete();
+            return response()->json([
+                "message" => "Comment Deleted"
+            ], 201);
+        }
+        return response()->json([
+            "message" => "Error"
+        ], 401);
     }
 }
