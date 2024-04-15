@@ -54,6 +54,13 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::delete('/delete/{id}', [TaskController::class, 'deleteTask']);
         Route::patch('/update-status/{id}', [TaskController::class, 'setTaskStatus']);
         Route::patch('/disable-task/{id}', [TaskController::class, 'disableTask']);
+
+        Route::prefix('comments')->group(function () {
+            Route::post('/create/{id}', [TaskController::class, 'addCommentToTask']);
+            Route::patch('/entity/{id}', [TaskController::class, 'getEntityComments']);
+            Route::put('/update/{id}', [TaskController::class, 'editComment']);
+            Route::delete('/delete/{id}', [TaskController::class, 'deleteComment']);
+        });
     });
 
 
@@ -63,6 +70,8 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::delete('/delete/{id}', [TodoController::class, 'deleteTodo']);
         Route::patch('/update-status/{id}', [TodoController::class, 'updateTodoStatus']);
     });
+
+    
 
 
 

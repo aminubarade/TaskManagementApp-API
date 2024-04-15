@@ -24,7 +24,6 @@ trait Comments
             return response()->json([
                 "message"=> "Comment Added",
                 "comment" => $comment
-
             ], 200);
         }
         catch(Exception $e){

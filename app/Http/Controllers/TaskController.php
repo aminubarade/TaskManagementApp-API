@@ -5,13 +5,15 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
+use App\Traits\Comments;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-   public function createTask(Request $request)
-   {
+    use Comments; 
+    public function createTask(Request $request)
+    {
         try{
             DB::beginTransaction();
             $task = new Task;
@@ -38,20 +40,20 @@ class TaskController extends Controller
             ], 401);
         }
         
-   }
+    }
 
-   public function getAllTasks()
-   {
+    public function getAllTasks()
+    {
         $user = User::find(Auth::user()->id);
         $tasks = $user->tasks;
         return response()->json([
             "message" => "All Your Tasks",
             "tasks" => $tasks
         ], 200);
-   }
+    }
 
-   public function viewTask($id)
-   {
+    public function viewTask($id)
+    {
         $task = Task::find($id);
         if($task){
             $todos = $task->todos;
@@ -60,16 +62,17 @@ class TaskController extends Controller
                 'message' => 'Task fetched',
                 'task' => $task,
                 'taskTodos' => $todos,
-                'taskMembers' => $members
+                'taskMembers' => $members,
+                'comments' => $task->comments
             ], 200);
         }
         return response()->json([
             'message' => 'Task does not exists',
         ], 200);
-   }
+    }
 
-   public function updateTask(Request $request, $id)
-   {
+    public function updateTask(Request $request, $id)
+    {
         $task = Task::find($id);
         if($task)
         {
@@ -89,10 +92,10 @@ class TaskController extends Controller
         return response()->json([
             "message" => "Task Does not Exist"
         ], 200);
-   }
+    }
 
-   public function deleteTask ($id)
-   {
+    public function deleteTask ($id)
+    {
         $task = Task::find($id);
         if($task){
             $task->delete();
@@ -104,10 +107,10 @@ class TaskController extends Controller
                 "message" => "Task has already been delete"
             ],404);
         }
-   }
+    }
 
-   public function disableTask(Request $request, $id)
-   {
+    public function disableTask(Request $request, $id)
+    {
         $validated = Validator::make($request->all(),[
             'is_active' => 'required|boolean',
         ]);
@@ -129,11 +132,11 @@ class TaskController extends Controller
         return response()->json([
             "message" => "Task does not exist or already disabled"
         ], 200);
-    
-   }
 
-   public function setTaskStatus(Request $request, $id)
-   {
+    }
+
+    public function setTaskStatus(Request $request, $id)
+    {
         $validated = Validator::make($request->all(),[
             'status' => 'required|',
         ]);
@@ -155,7 +158,24 @@ class TaskController extends Controller
         return response()->json([
             "message" => "Task does not exist"
         ], 200);
-   }
+    }
 
-
+    public function addCommentToTask(Request $request, $id)
+    {
+        $entity = Task::find($id);
+        if(!$entity)
+        {
+            return response()->json([
+                "message" => "Entity Not Found"
+            ], 422);
+        }
+        $this->addComment($request, $entity);
+        return response()->json([
+                "message" => "success"
+        ], 200);
+    }
+    public function editTaskComment()
+    {
+        
+    }
 }

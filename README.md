@@ -241,7 +241,6 @@ Handle errors and exceptions gracefully by returning appropriate HTTP status cod
   2. Permissions
   3. File attachments
   4. Password reset
-  5. Comments
 
 
 
