@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\CommentController;
 
 
 
@@ -54,13 +55,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::delete('/delete/{id}', [TaskController::class, 'deleteTask']);
         Route::patch('/update-status/{id}', [TaskController::class, 'setTaskStatus']);
         Route::patch('/disable-task/{id}', [TaskController::class, 'disableTask']);
-
-        Route::prefix('comments')->group(function () {
-            Route::post('/create/{id}', [TaskController::class, 'addCommentToTask']);
-            Route::patch('/entity/{id}', [TaskController::class, 'getEntityComments']);
-            Route::put('/update/{id}', [TaskController::class, 'editComment']);
-            Route::delete('/delete/{id}', [TaskController::class, 'deleteComment']);
-        });
+        Route::post('/create/{id}', [TaskController::class, 'addCommentToTask']);
     });
 
 
@@ -71,7 +66,12 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::patch('/update-status/{id}', [TodoController::class, 'updateTodoStatus']);
     });
 
-    
+ 
+
+    Route::prefix('comments')->group(function () {
+        Route::put('/update/{id}', [CommentController::class, 'editComment']);
+        Route::delete('/delete/{id}', [CommentController::class, 'deleteComment']);
+    });
 
 
 
