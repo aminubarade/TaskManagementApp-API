@@ -176,6 +176,16 @@ Before running this code locally, ensure you have:
   - `status` (integer): New status of the task (e.g., "Completed", "In Progress").
 - **Authentication:** Requires a valid Passport token obtained after login.
 
+#### Comment on a Task
+- **Method:** POST
+- **Endpoint:** `/api/tasks/add-comment/:taskId`
+- **Parameters:**
+  - `comment` (string): the body of the comment.
+  - `user_id` (integer): The ID of the user add comment (Auto generated).
+  - `entity_id` (integer): ID of the entity you are adding comment to; Task ID in this case (Auto generated)..
+  - `entity_type` (string): Type of the entity you are adding comment to; Task in this case (Auto generated).
+- **Authentication:** Requires a valid Passport token obtained after login.
+
 ## Todo Endpoints
 
 #### Add Todo to Task or Create Independent Todo
@@ -213,6 +223,29 @@ Before running this code locally, ensure you have:
   - `todoId` (integer): ID of the todo.
 - **Authentication:** Requires a valid Passport token obtained after login.
 
+## Comment Endpoints
+
+#### Update Comment 
+
+- **Method:** PUT
+- **Endpoint:** `/api/comments/update/:commentId`
+- **Parameters:**
+  - `commentId` (integer): ID of the todo to update.
+  - `comment` (string): Body of the comment to update.
+- **Authentication:** Requires a valid Passport token obtained after login.
+
+#### Delete Comment
+
+- **Method:** DELETE
+- **Endpoint:** `/api/comments/delete/:commentId`
+- **Parameters:**
+  - `commentId` (integer): ID of the comment.
+- **Authentication:** Requires a valid Passport token obtained after login.
+
+#### Get Comments
+- **Note:** To view an entity comments, simply view the entity and access the comments in the returned parameters (for exmaple GET `/api/tasks/view/:id` returns the comments of the given task).
+
+#
 ## Database Schema
 <img src="taskshare.jpeg" alt="">
 
@@ -221,7 +254,7 @@ Before running this code locally, ensure you have:
 1. Use Postman or any API testing tool to test the endpoints.
 2. Register a new user using the `/api/users/register` endpoint.
 3. Login with the registered user using the `/api/users/login` endpoint to obtain a Laravel Passport token.
-4. Use the obtained JWT token to access protected endpoints requiring authentication.
+4. Use the obtained Passport token to access protected endpoints requiring authentication.
 
 ## Security Considerations
 
@@ -240,7 +273,7 @@ Handle errors and exceptions gracefully by returning appropriate HTTP status cod
   1. Notifications
   2. Permissions
   3. File attachments
-  4. Password reset
+  4. Password reset (In-progress)
 
 
 
