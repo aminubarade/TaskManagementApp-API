@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::delete('/delete/{id}', [TaskController::class, 'deleteTask']);
         Route::patch('/update-status/{id}', [TaskController::class, 'setTaskStatus']);
         Route::patch('/disable-task/{id}', [TaskController::class, 'disableTask']);
-        Route::post('/create/{id}', [TaskController::class, 'addCommentToTask']);
+        Route::post('/add-comment/{id}', [TaskController::class, 'addCommentToTask']);
     });
 
 
