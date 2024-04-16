@@ -230,7 +230,7 @@ Before running this code locally, ensure you have:
 - **Method:** PUT
 - **Endpoint:** `/api/comments/update/:commentId`
 - **Parameters:**
-  - `todoId` (integer): ID of the todo to update.
+  - `commentId` (integer): ID of the todo to update.
   - `comment` (string): Body of the comment to update.
 - **Authentication:** Requires a valid Passport token obtained after login.
 
