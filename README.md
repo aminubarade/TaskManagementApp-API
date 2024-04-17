@@ -268,6 +268,9 @@ Handle errors and exceptions gracefully by returning appropriate HTTP status cod
   1. Framework - Laravel Version 9.52.16
   2. Database architecture - Eloquent
 
+## License
+The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
 
 # Upcoming Feature
   1. Notifications
