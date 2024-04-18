@@ -27,7 +27,7 @@ class UserController extends Controller
         }
         return response()->json([
             'message' => 'user does not exists',
-        ], 200);
+        ], 401);
     }
 
     public function updateUser(Request $request, $id)
@@ -57,7 +57,7 @@ class UserController extends Controller
         }else {
             return response()->json([
                 "message" => "User has already been delete"
-            ],404);
+            ],422);
         }
     }
 }
