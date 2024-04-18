@@ -48,7 +48,7 @@ class TodoController extends Controller
         }
         return response()->json([
             "message" => "Todo Does not Exist"
-        ], 200);
+        ], 401);
     }
     
     public function deleteTodo($id)
@@ -88,6 +88,6 @@ class TodoController extends Controller
         }
         return response()->json([
             "message" => "Todo does not exist"
-        ], 200);
+        ], 401);
     }
 }

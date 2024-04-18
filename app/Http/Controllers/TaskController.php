@@ -87,7 +87,7 @@ class TaskController extends Controller
             return response()->json([
                 'message' => 'Task updated',
                 'task' => $task
-            ], 200);
+            ], 201);
         }
         return response()->json([
             "message" => "Task Does not Exist"
@@ -101,11 +101,11 @@ class TaskController extends Controller
             $task->delete();
             return response()->json([
                 "message" => "Task Deleted"
-            ], 200);
+            ], 201);
         }else {
             return response()->json([
                 "message" => "Task has already been delete"
-            ],404);
+            ],422);
         }
     }
 
@@ -127,11 +127,11 @@ class TaskController extends Controller
             $task->update();
             return response()->json([
                 "message" => "Task Disabled"
-            ], 200);
+            ], 201);
         }
         return response()->json([
             "message" => "Task does not exist or already disabled"
-        ], 200);
+        ], 401);
 
     }
 
@@ -157,7 +157,7 @@ class TaskController extends Controller
         }
         return response()->json([
             "message" => "Task does not exist"
-        ], 200);
+        ], 401);
     }
 
     public function addCommentToTask(Request $request, $id)
@@ -172,6 +172,6 @@ class TaskController extends Controller
         $this->addComment($request, $entity);
         return response()->json([
                 "message" => "success"
-        ], 200);
+        ], 201);
     }
 }
