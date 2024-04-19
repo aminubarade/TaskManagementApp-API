@@ -9,10 +9,6 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\CommentController;
 
 
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,15 +33,14 @@ Route::group(['middleware' => 'auth:api'], function() {
 });
 
 
-Route::group(['middleware' => 'auth:api'], function() {
-   
+Route::group(['middleware' => 'auth:api'], function() 
+{   
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'getAllUsers']);
         Route::get('/view/{id}', [UserController::class, 'viewUser']);
         Route::put('update/{id}', [UserController::class, 'updateUser']);
         Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
     });
-
 
     Route::prefix('tasks')->group(function () {
         Route::post('/create', [TaskController::class, 'createTask']);
@@ -58,7 +53,6 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('/add-comment/{id}', [TaskController::class, 'addCommentToTask']);
     });
 
-
     Route::prefix('todos')->group(function () {
         Route::post('/create', [TodoController::class, 'createTodo']);
         Route::put('/update/{id}', [TodoController::class, 'updateTodo']);
@@ -66,22 +60,16 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::patch('/update-status/{id}', [TodoController::class, 'updateTodoStatus']);
     });
 
- 
-
     Route::prefix('comments')->group(function () {
         Route::put('/update/{id}', [CommentController::class, 'editComment']);
         Route::delete('/delete/{id}', [CommentController::class, 'deleteComment']);
     });
 
-
-
-
-
-
-
-
-
-
+    Route::prefix('password-requests')->group(function () {
+        Route::post('/send', [PasswordResetController::class, 'sendPasswordResetRequest']);
+        Route::get('/list', [PasswordResetController::class, 'allPasswordResetRequests']);
+        Route::put('/process', [PasswordResetController::class, 'processPasswordResetRequest']);
+    });
 
 });
 
