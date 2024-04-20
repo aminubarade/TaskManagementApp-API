@@ -272,7 +272,7 @@ Handle errors and exceptions gracefully by returning appropriate HTTP status cod
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-# Upcoming Feature
+# Upcoming Features
   1. Notifications
   2. Permissions
   3. File attachments
