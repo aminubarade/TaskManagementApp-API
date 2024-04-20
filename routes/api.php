@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PasswordResetController;
 
 
 /*
@@ -65,12 +66,11 @@ Route::group(['middleware' => 'auth:api'], function()
         Route::delete('/delete/{id}', [CommentController::class, 'deleteComment']);
     });
 
-    Route::prefix('password-requests')->group(function () {
+    Route::prefix('password-reset-requests')->group(function () {
         Route::post('/send', [PasswordResetController::class, 'sendPasswordResetRequest']);
-        Route::get('/list', [PasswordResetController::class, 'allPasswordResetRequests']);
+        Route::get('/', [PasswordResetController::class, 'getAllPasswordResetRequests']);
         Route::put('/process', [PasswordResetController::class, 'processPasswordResetRequest']);
     });
-
 });
 
 
