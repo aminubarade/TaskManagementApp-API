@@ -43,7 +43,7 @@ class PasswordResetController extends Controller
    public function getAllPasswordResetRequests()
    {
         $passwordResetRequests = PasswordResetRequest::all();
-        if(count($passwordResetRequests) > 1)
+        if(count($passwordResetRequests) > 0)
         {
             return response()->json([
                 "message" => "All password reset requests fetched",
