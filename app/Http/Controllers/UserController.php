@@ -13,7 +13,10 @@ class UserController extends Controller
     public function getAllUsers()
     {
         $users = User::all();
-        return response()->json($users);
+        return response()->json([
+            "message" => "All users fetched.",
+            "users" => $users
+        ], 200);
     }
 
     public function viewUser($id)
