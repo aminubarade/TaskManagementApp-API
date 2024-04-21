@@ -245,6 +245,31 @@ Before running this code locally, ensure you have:
 #### Get Comments
 - **Note:** To view an entity comments, simply view the entity and access the comments in the returned parameters (for exmaple GET `/api/tasks/view/:id` returns the comments of the given task).
 
+
+## Password Reset Endpoints
+
+#### Send Password Reset Request
+
+- **Method:** POST
+- **Endpoint:** `/api/password-reset-requests/send`
+- **Parameters:**
+  - `email` (string): Email of the user sending the password reset request.
+- **Authentication:** None.
+
+#### Get All Password Reset Request
+
+- **Method:** GET
+- **Endpoint:** `/api/password-reset-requests/`
+- **Authentication:** Requires a valid Passport token obtained after login.
+
+#### Process Password Reset request
+
+- **Method:** PUT
+- **Endpoint:** `/api/password-reset-requests/process/:passwordProcessRequestId`
+- **Parameters:**
+  - `passwordProcessRequestId` (integer): ID of the password reset request.
+- **Authentication:** Requires a valid Passport token obtained after login.
+
 #
 ## Database Schema
 <img src="taskshare.jpeg" alt="">
@@ -273,10 +298,9 @@ The Laravel framework is open-source software licensed under the [MIT license](h
 
 
 # Upcoming Features
-  1. Notifications
-  2. Permissions
-  3. File attachments
-  4. Password reset (In-progress)
+  1. Notifications.
+  2. Permissions.
+  3. File attachments.
 
 
 
