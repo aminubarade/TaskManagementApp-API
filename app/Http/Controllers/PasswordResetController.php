@@ -55,8 +55,35 @@ class PasswordResetController extends Controller
         ], 400);
    }
 
-   public function processPasswordResetRequest() 
+   public function processPasswordResetRequest(Request $request, $id) 
    {
+        $passwordResetRequest = PasswordResetRequest::find($id);
+        if(!$passwordResetRequest){
+            return response()->json([
+                "message" => "Request does not exist."
+            ], 422);
+
+        }
+        $validated = Validator::make($request->all(),[
+            'password' =>'required',
+        ]);
+        if($validated->fails()){
+            return response()->json([
+                "status" => 422,
+                "message" => $validated->messages()
+            ],422);
+        }
+        $user = User::where('email',$passwordResetRequest->email)->first();
+        if(!$user){
+            return response()->json([
+                "message" => "User not found!"
+            ], 422);
+        }
+        $user->password = bcrypt($request->password);
+        $user->update();
+        return response()->json([
+            "message" => "Password updated successfully"
+        ], 200);
     
    }
 }
