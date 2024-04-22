@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth:api'], function()
         Route::post('/send', [PasswordResetController::class, 'sendPasswordResetRequest']);
         Route::get('/', [PasswordResetController::class, 'getAllPasswordResetRequests']);
         Route::put('/process/{id}', [PasswordResetController::class, 'processPasswordResetRequest']);
+        Route::delete('/delete/{id}', [PasswordResetController::class, 'deletePasswordResetRequest']);
     });
 });
 
