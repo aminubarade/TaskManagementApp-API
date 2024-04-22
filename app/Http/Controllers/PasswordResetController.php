@@ -80,10 +80,27 @@ class PasswordResetController extends Controller
             ], 422);
         }
         $user->password = bcrypt($request->password);
+        $user->request_status = 0;
         $user->update();
         return response()->json([
             "message" => "Password updated successfully"
         ], 200);
     
+   }
+
+   public function deletePasswordResetRequest($id)
+   {
+        $passwordResetRequest = PasswordResetRequest::find($id);
+        if(!$passwordResetRequest)
+        {
+            return response()->json([
+                "message" => "Request Not found."
+            ], 400);
+        }
+        $passwordResetRequest->delete();
+        return response()->json([
+            "message" => "Request deleted."
+        ], 201);
+
    }
 }
