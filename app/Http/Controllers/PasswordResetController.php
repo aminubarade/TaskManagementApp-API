@@ -64,6 +64,12 @@ class PasswordResetController extends Controller
             ], 422);
 
         }
+        if($passwordResetRequest->request_status === 0){
+            return response()->json([
+                "message" => "Request already processed."
+            ], 422);
+
+        }
         $validated = Validator::make($request->all(),[
             'password' =>'required',
         ]);

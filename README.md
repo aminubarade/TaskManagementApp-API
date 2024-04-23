@@ -267,7 +267,16 @@ Before running this code locally, ensure you have:
 - **Method:** PUT
 - **Endpoint:** `/api/password-reset-requests/process/:passwordProcessRequestId`
 - **Parameters:**
-  - `passwordProcessRequestId` (integer): ID of the password reset request.
+  - `passwordProcessRequestId` (integer): ID of the password reset request being processed.
+  - `request_status` (boolean): status of the password reset request being processed will change to 0 (processed).
+- **Authentication:** Requires a valid Passport token obtained after login.
+
+#### Delete Password Reset request
+
+- **Method:** DELETE
+- **Endpoint:** `/api/password-reset-requests/delete/:passwordProcessRequestId`
+- **Parameters:**
+  - `passwordProcessRequestId` (integer): ID of the password reset request to be deleted.
 - **Authentication:** Requires a valid Passport token obtained after login.
 
 #
