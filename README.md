@@ -20,27 +20,46 @@ Before running this code locally, ensure you have:
       ```bash
       git clone https://github.com/aminubarade/TaskManagementApp-API.git
 #
+
   2. Navigate to the project directory.
 
       ```bash
       cd TaskManagementApp-API
 #
+
   3. Install project dependencies using Composer.
 
       ```bash
       composer install
 #
+
   4. Set up the environment variables by creating a .env file based on the provided .env.example file and update the variables according to your environment.
 
       ```bash
       cp .env.example .env
 #
-  5. Start the application.
+
+  5. Generate key for the application.
+
+      ```bash
+      php artisan key:generate
+#
+  6. Run migration to create tables in your database.
+
+      ```bash
+      php artisan migrate
+#
+  6. Run this command to create the encryption keys needed to generate secure access tokens.
+
+      ```bash
+      php artisan passport:install
+#
+  7. Start the application.
 
       ```bash
       php artisan serve
 #
-  6. Access the API endpoints at http://localhost:8000.
+  8. Access the API endpoints at http://localhost:8000/api.
 #
 
 ## Available APIs
