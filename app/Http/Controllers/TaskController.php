@@ -111,15 +111,6 @@ class TaskController extends Controller
 
     public function disableTask(Request $request, $id)
     {
-        $validated = Validator::make($request->all(),[
-            'is_active' => 'required|boolean',
-        ]);
-        if($validated->fails()){
-            return response()->json([
-                "status" => 422,
-                "message" => $validated->messages()
-            ],422);
-        }
         $task = Task::find($id);
         if($task->is_active == 1)
         {
