@@ -86,8 +86,9 @@ class PasswordResetController extends Controller
             ], 422);
         }
         $user->password = bcrypt($request->password);
-        $user->request_status = 0;
         $user->update();
+        $passwordResetRequest->request_status = 0;
+        $passwordResetRequest->update();
         return response()->json([
             "message" => "Password updated successfully"
         ], 200);

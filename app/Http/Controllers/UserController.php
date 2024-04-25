@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
 use Hash;
 use App\Models\User;
 
@@ -44,9 +43,12 @@ class UserController extends Controller
             $user->email = is_null($request->email) ? $user->email : $request->email; 
             $user->update();
             return response()->json([
-                "message" => "User record updated"
+                "message" => "User record updated."
             ],201);
         }
+        return response()->json([
+            "" => "User does not exist."
+        ], 422);
     }
 
     public function deleteUser($id)
