@@ -32,12 +32,12 @@ class PasswordResetController extends Controller
             $passwordResetRequest->save();
             return response()->json([
                 "message" => "Password Reset sent. Contact Administrator for your new Password."
-            ], 200);
+            ], 201);
         
         }
         return response()->json([
             "message" => "User does not exist"
-        ], 400);
+        ], 404);
    }
 
    public function getAllPasswordResetRequests()
@@ -61,7 +61,7 @@ class PasswordResetController extends Controller
         if(!$passwordResetRequest){
             return response()->json([
                 "message" => "Request does not exist."
-            ], 422);
+            ], 404);
 
         }
         if($passwordResetRequest->request_status === 0){

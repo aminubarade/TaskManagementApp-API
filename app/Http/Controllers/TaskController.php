@@ -31,7 +31,7 @@ class TaskController extends Controller
                 "message" => "Task created",
                 "task" => $task,
                 "members" => $members
-            ], 200);
+            ], 201);
         }
         catch(Exception $e){
             DB::rollBack();
@@ -68,7 +68,7 @@ class TaskController extends Controller
         }
         return response()->json([
             'message' => 'Task does not exists',
-        ], 200);
+        ], 404);
     }
 
     public function updateTask(Request $request, $id)
@@ -91,7 +91,7 @@ class TaskController extends Controller
         }
         return response()->json([
             "message" => "Task Does not Exist"
-        ], 200);
+        ], 404);
     }
 
     public function deleteTask ($id)
