@@ -23,7 +23,7 @@ class TodoController extends Controller
             return response()->json([
                 "message" => "Todo Created",
                 "todo" => $todo
-            ], 200);
+            ], 201);
         }
         catch(Exception $e){
             DB::rollBack();
@@ -48,7 +48,7 @@ class TodoController extends Controller
         }
         return response()->json([
             "message" => "Todo Does not Exist"
-        ], 401);
+        ], 404);
     }
     
     public function deleteTodo($id)
@@ -88,6 +88,6 @@ class TodoController extends Controller
         }
         return response()->json([
             "message" => "Todo does not exist"
-        ], 401);
+        ], 404);
     }
 }

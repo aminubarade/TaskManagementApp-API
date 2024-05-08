@@ -1,0 +1,528 @@
+{
+	"info": {
+		"_postman_id": "91867b5e-2da5-4fbe-8b78-68b168afe47c",
+		"name": "Taskshare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "2847304"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"johndoe\",\n    \"password\": \"testpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/login"
+					},
+					"response": []
+				},
+				{
+					"name": "registerUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"johndoe2\",\n    \"firstname\":\"John2\",\n    \"lastname\": \"Doe\",\n    \"phone\": 1234567890,\n    \"email\": \"johndoe2@gmail.com\",\n    \"password\": \"testpassword\",\n    \"address\": \"Mountain view california\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/register"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8000/api/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users Management",
+			"item": [
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/users/"
+					},
+					"response": []
+				},
+				{
+					"name": "viewUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/users/view/1"
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": 1234567800\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/users/update/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/api/users/delete/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks Management",
+			"item": [
+				{
+					"name": "Todos",
+					"item": [
+						{
+							"name": "createTodo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": ""
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\":\"Create an e recruitment management system\",\n    \"task_id\": 1 //nullable\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8000/api/todos/create"
+							},
+							"response": []
+						},
+						{
+							"name": "updateTodo",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"The new name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8000/api/todos/update/90"
+							},
+							"response": []
+						},
+						{
+							"name": "updateTodoStatus",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": ""
+									}
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8000/api/todos/update-status/2"
+							},
+							"response": []
+						},
+						{
+							"name": "deleteTodo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": ""
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8000/api/todos/delete/3"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "createTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Create an e recruitment management system\",\n    \"description\":\"the app shouldd be good.\",\n    \"due_date\": \"2024-08-20 12:00:01\",\n    \"assign_to\": [1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/tasks/create"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "viewTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/tasks/view/3"
+					},
+					"response": []
+				},
+				{
+					"name": "updateTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"This is a new task description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/tasks/update/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTask",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/api/tasks/delete/1"
+					},
+					"response": []
+				},
+				{
+					"name": "disableTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/tasks/disable-task/1"
+					},
+					"response": []
+				},
+				{
+					"name": "updateTaskStatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/tasks/update-status/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "getEntityComments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/entity/1/comments/"
+					},
+					"response": []
+				},
+				{
+					"name": "addCommentToEntity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\":\"test tes 22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/tasks/add-comment/1"
+					},
+					"response": []
+				},
+				{
+					"name": "editEntityComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\":\"New test test comment\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/comments/update/2"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteEntityComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/api/comments/delete/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Password Resets",
+			"item": [
+				{
+					"name": "getAllPasswordResetRequests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/password-reset-requests/"
+					},
+					"response": []
+				},
+				{
+					"name": "sendPasswordResetRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"johndoe@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/password-reset-requests/send"
+					},
+					"response": []
+				},
+				{
+					"name": "processPasswordResetRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"secondpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/password-reset-requests/process/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deletePasswordResetRequest",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/api/password-reset-requests/delete/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": []
+		},
+		{
+			"name": "Permissions",
+			"item": []
+		}
+	]
+}
