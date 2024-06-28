@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth:api'], function()
         Route::put('/update/{id}', [TodoController::class, 'updateTodo']);
         Route::delete('/delete/{id}', [TodoController::class, 'deleteTodo']);
         Route::patch('/update-status/{id}', [TodoController::class, 'updateTodoStatus']);
+        Route::post('/convert-task/{id}', [TodoController::class, 'convertTodoToTask']);
     });
 
     Route::prefix('comments')->group(function () {

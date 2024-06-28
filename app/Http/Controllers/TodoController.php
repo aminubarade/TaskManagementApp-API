@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -90,4 +91,42 @@ class TodoController extends Controller
             "message" => "Todo does not exist"
         ], 404);
     }
+
+    public function convertTodoToTask(Request $request, $id)
+    {
+        $todo = Todo::find($id);
+        if($todo)
+        {
+            try{
+                DB::beginTransaction();
+                $task = new Task;
+                $task->title = $todo->title;
+                $task->description = $todo->title;
+                $task->due_date = $todo->date_created;
+                $task->created_by = Auth::user()->id;
+                $task->save();
+                DB::commit();
+                if($request->assign_to){
+                    $task->users()->sync($request->assign_to);
+                }
+                $members = $task->users()->get();
+                return response()->json([
+                    "message" => "Todo Has been converted to task.",
+                    "task" => $task,
+                    "members" => $members
+                ], 201);
+            }
+            catch(Exception $e){
+                DB::rollBack();
+                return response()->json([
+                    "message" => $e
+                ], 401);
+            }
+        }
+        return response()->json([
+            "message" => "Todo does not exist"
+        ], 404);
+    }
+
 }
+
